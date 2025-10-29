@@ -6,7 +6,7 @@
     <title>Formulir Penggantian Kata-kata</title>
     <style>
         /* Import font dari Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         /* Styling untuk body */
         body {
@@ -16,7 +16,7 @@
             height: 100vh;
             font-family: 'Poppins', Arial, sans-serif;
             margin: 550px 200px;
-            background: #f4f4f4; /* Latar belakang abu-abu */
+            background: linear-gradient(135deg, #003D7A 0%, #0052A3 100%); /* Gradasi biru KEMENKUMHAM */
         }
 
         /* Efek blur untuk background */
@@ -27,10 +27,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('<?= base_url('static\images\bg.jpg') ?>'); /* Lokasi gambar background */
+            background-image: url('<?= base_url('static/images/bg.jpg') ?>'); /* Lokasi gambar background */
             background-size: cover;
             background-position: center;
             filter: blur(5px); /* Efek blur */
+            opacity: 0.1;
             z-index: -1; /* Letakkan di belakang semua elemen */
         }
 
@@ -38,10 +39,11 @@
         .form-wrapper {
             width: 90%;
             max-width: 900px; /* Lebar maksimum formulir */
-            background: rgba(255, 255, 255, 0.7); /* Latar belakang semi-transparan */
-            padding: 25px; /* Padding di dalam formulir */
-            border-radius: 10px; /* Sudut bulat */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Bayangan */
+            background: #FFFFFF; /* Latar belakang putih solid */
+            padding: 30px; /* Padding di dalam formulir */
+            border-radius: 12px; /* Sudut bulat */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Bayangan lebih kuat */
+            border-top: 5px solid #FFCC00; /* Border atas kuning emas KEMENKUMHAM */
             z-index: 1; /* Letakkan di atas latar belakang yang di-blur */
         }
 
@@ -49,20 +51,26 @@
         header {
             text-align: center;
             margin-bottom: 30px;
+            background: linear-gradient(90deg, #003D7A 0%, #0052A3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: -30px -30px 30px -30px;
         }
 
         /* Styling untuk judul header */
         header h1 {
-            font-size: 24px; /* Ukuran font disesuaikan */
-            font-weight: bold;
-            color: #333; /* Warna teks */
+            font-size: 26px; /* Ukuran font disesuaikan */
+            font-weight: 700;
+            color: #FFFFFF; /* Warna putih */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0;
         }
 
         /* Garis pemisah */
         header hr {
             border: none;
-            border-top: 1.5px solid #333; /* Ketebalan dan warna garis */
-            margin: 20px 0; /* Margin atas dan bawah */
+            border-top: 3px solid #FFCC00; /* Ketebalan dan warna garis kuning emas */
+            margin: 15px 0 0 0; /* Margin atas dan bawah */
         }
 
         /* Grid untuk penempatan elemen formulir */
@@ -83,13 +91,15 @@
         input[type="email"],
         textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 2px solid #003D7A;
+            border-radius: 6px;
             outline: none;
             font-family: 'Poppins', Arial, sans-serif;
             resize: vertical; /* Izinkan penyesuaian vertikal */
+            background: #FFFFFF;
+            transition: all 0.3s ease;
         }
 
         /* Judul untuk input */
@@ -97,18 +107,20 @@
             margin: 10px 0;
             font-family: 'Poppins', Arial, sans-serif;
             font-size: 14px; /* Ukuran font disesuaikan */
+            color: #003D7A;
+            font-weight: 600;
         }
 
         /* Label untuk input */
         .form-group label {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 12px;
+            left: 12px;
             background: #fff;
             border-radius: 4px;
             padding: 0 5px;
             transition: 0.2s;
-            color: #aaa;
+            color: #666;
             font-family: 'Poppins', Arial, sans-serif;
             font-size: 12px;
             pointer-events: none;
@@ -119,37 +131,46 @@
         textarea:focus + label,
         input:not(:placeholder-shown) + label,
         textarea:not(:placeholder-shown) + label {
-            top: -12px;
+            top: -10px;
             left: 10px;
-            font-size: 12px;
-            color: #333;
+            font-size: 11px;
+            color: #003D7A;
+            font-weight: 600;
         }
 
         /* Efek focus pada input */
         input:focus,
         textarea:focus {
-            border-color: #333;
+            border-color: #FFCC00;
+            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
         }
 
         /* Tombol submit */
         button {
             grid-column: span 2;
-            padding: 12px;
-            background-color: #2A2D85;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #003D7A 0%, #0052A3 100%);
+            color: #FFFFFF;
+            border: 2px solid #FFCC00;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
             font-family: 'Poppins', Arial, sans-serif;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 61, 122, 0.3);
         }
 
         /* Efek hover pada tombol submit */
         button:hover {
-            background-color: #1f215c;
+            background: linear-gradient(135deg, #FFCC00 0%, #FFD633 100%);
+            color: #003D7A;
+            border-color: #003D7A;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
         }
 
         /* Styling untuk input file */
@@ -157,13 +178,19 @@
             position: relative;
             display: block;
             width: 100%;
-            background: #fff; /* Latar belakang putih untuk konsistensi */
-            border: 1px solid #ccc; /* Border konsisten dengan input teks */
-            border-radius: 4px; /* Sudut bulat */
-            padding: 10px;
+            background: #FFFFFF; /* Latar belakang putih untuk konsistensi */
+            border: 2px solid #003D7A; /* Border biru KEMENKUMHAM */
+            border-radius: 6px; /* Sudut bulat */
+            padding: 12px;
             box-sizing: border-box; /* Menghitung padding dan border dalam lebar elemen */
             font-family: 'Poppins', Arial, sans-serif; /* Font konsisten */
             margin-bottom: 20px; /* Margin bawah untuk jarak antar elemen */
+            transition: all 0.3s ease;
+        }
+
+        .file-input-wrapper:hover {
+            border-color: #FFCC00;
+            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
         }
 
         .file-input-wrapper input[type="file"] {
@@ -177,33 +204,44 @@
         }
 
         .file-input-wrapper label {
-            font-size: 14px;
-            color: #333;
+            font-size: 13px;
+            color: #003D7A;
             margin: 0;
             line-height: 20px;
             display: block;
+            font-weight: 500;
         }
 
         .file-input-wrapper input[type="file"] + label::before {
             content: 'Unggah File';
             display: inline-block;
-            background-color: #2A2D85;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #003D7A 0%, #0052A3 100%);
+            color: #FFFFFF;
+            padding: 8px 20px;
+            border-radius: 5px;
             text-align: center;
             cursor: pointer;
+            margin-right: 10px;
+            font-weight: 600;
+            border: 1px solid #FFCC00;
+            transition: all 0.3s ease;
         }
 
         .file-input-wrapper input[type="file"]:hover + label::before {
-            background-color: #1f215c;
+            background: linear-gradient(135deg, #FFCC00 0%, #FFD633 100%);
+            color: #003D7A;
+            border-color: #003D7A;
         }
 
         /* Styling untuk kesalahan validasi */
         .validation-error {
-            color: #ff0000;
+            color: #dc3545;
             font-size: 14px;
             margin-bottom: 20px;
+            background: #ffe6e6;
+            padding: 15px;
+            border-left: 4px solid #dc3545;
+            border-radius: 4px;
         }
 
         /* Responsif */

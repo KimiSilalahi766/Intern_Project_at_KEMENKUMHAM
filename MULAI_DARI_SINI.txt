@@ -1,0 +1,309 @@
+================================================================================
+                    🚀 MULAI DARI SINI - PANDUAN CEPAT
+================================================================================
+
+BACA INI DULU SEBELUM MULAI!
+
+File ini adalah ringkasan super cepat. 
+Untuk detail lengkap, buka file: PANDUAN_LENGKAP_VSCODE.md
+
+================================================================================
+                        📋 YANG HARUS ANDA PUNYA
+================================================================================
+
+1. ✅ VSCode          → Download: https://code.visualstudio.com/
+2. ✅ PHP 8.1+        → Pakai XAMPP: https://www.apachefriends.org/
+3. ✅ Composer        → Download: https://getcomposer.org/download/
+4. ✅ Web Browser     → Chrome/Edge/Firefox (sudah punya)
+
+
+================================================================================
+            🔧 INSTALASI (SEKALI SAJA - SKIP JIKA SUDAH PUNYA)
+================================================================================
+
+LANGKAH 1: INSTALL XAMPP
+-------------------------
+1. Download XAMPP dari: https://www.apachefriends.org/
+2. Install (pilih Apache + PHP saja, MySQL opsional)
+3. Install di: C:\xampp
+
+LANGKAH 2: TAMBAH PHP KE PATH
+------------------------------
+1. Klik kanan "This PC" → Properties
+2. Advanced system settings → Environment Variables
+3. Cari "Path" di System variables → Edit
+4. Klik "New" → Ketik: C:\xampp\php
+5. OK → OK → OK
+
+LANGKAH 3: INSTALL COMPOSER
+----------------------------
+1. Download Composer-Setup.exe dari: https://getcomposer.org/download/
+2. Install (auto-detect PHP dari XAMPP)
+3. Next → Next → Install → Finish
+
+LANGKAH 4: INSTALL VSCODE
+--------------------------
+1. Download dari: https://code.visualstudio.com/
+2. Install
+3. Centang "Add to PATH"
+4. Finish
+
+LANGKAH 5: CEK INSTALASI
+-------------------------
+Buka Command Prompt (Win + R, ketik cmd, Enter), lalu ketik:
+
+    php --version
+
+Harus muncul: PHP 8.2.x (cli)
+
+Ketik:
+
+    composer --version
+
+Harus muncul: Composer version 2.x.x
+
+
+================================================================================
+                    📥 DOWNLOAD & SETUP PROJECT
+================================================================================
+
+LANGKAH 1: DOWNLOAD PROJECT
+----------------------------
+1. Download project ini sebagai ZIP
+2. Extract ke folder, contoh:
+   D:\Projects\laporan-evaluasi\
+
+   ⚠️ JANGAN taruh di Desktop atau folder yang ada SPASI!
+
+LANGKAH 2: BUKA DI VSCODE
+--------------------------
+1. Buka VSCode
+2. File → Open Folder (atau Ctrl+K, Ctrl+O)
+3. Pilih folder: D:\Projects\laporan-evaluasi\
+4. Klik "Select Folder"
+
+LANGKAH 3: INSTALL DEPENDENCIES
+--------------------------------
+1. Di VSCode, buka Terminal: Ctrl + ` (tombol backtick di samping angka 1)
+2. Ketik:
+
+    composer install
+
+3. Tekan Enter
+4. Tunggu 2-5 menit sampai selesai
+5. Folder "vendor" akan muncul
+
+
+================================================================================
+                    🚀 JALANKAN APLIKASI (SETIAP KALI PAKAI)
+================================================================================
+
+LANGKAH 1: BUKA VSCODE
+-----------------------
+1. Buka VSCode
+2. File → Open Recent → Pilih folder project
+   Atau Open Folder → Pilih D:\Projects\laporan-evaluasi\
+
+LANGKAH 2: BUKA TERMINAL
+-------------------------
+1. Tekan: Ctrl + ` (backtick)
+2. Terminal akan muncul di bawah
+
+LANGKAH 3: JALANKAN SERVER
+---------------------------
+Di terminal, ketik:
+
+    php -S localhost:8080 -t public
+
+Tekan Enter
+
+Akan muncul:
+    [Date Time] PHP 8.2.23 Development Server (http://localhost:8080) started
+
+✅ Server sudah jalan!
+⚠️ JANGAN TUTUP TERMINAL INI!
+
+LANGKAH 4: BUKA BROWSER
+------------------------
+1. Buka Chrome/Edge/Firefox
+2. Ketik di address bar:
+
+    http://localhost:8080
+
+3. Tekan Enter
+
+LANGKAH 5: CEK APLIKASI
+------------------------
+✅ Harus muncul form dengan:
+   - Background biru gradasi
+   - Header biru dengan garis kuning
+   - Form putih bersih
+   - Input field border biru
+
+🎉 BERHASIL! Aplikasi sudah jalan!
+
+
+================================================================================
+                        🧪 TESTING APLIKASI
+================================================================================
+
+LANGKAH 1: ISI FORM
+--------------------
+Isi SEMUA field (tidak boleh ada yang kosong)
+
+Contoh data test:
+- Satuan Kerja (KOP): KANTOR WILAYAH KEMENKUMHAM JAWA TIMUR
+- Alamat: Jl. Veteran No. 20, Surabaya
+- Telpon: (031) 5321234
+- Laman: https://jatim.kemenkumham.go.id
+- Surel: kanwiljatim@kemenkumham.go.id
+- (isi field lainnya dengan data dummy)
+
+LANGKAH 2: UPLOAD GAMBAR
+-------------------------
+Upload 3 gambar apapun (foto random, screenshot, dll)
+- Format: JPG atau PNG
+- Ukuran: Max 2MB per gambar
+
+LANGKAH 3: SUBMIT
+------------------
+Klik tombol "KIRIM"
+
+LANGKAH 4: CEK FILE HASIL
+--------------------------
+✅ Browser akan OTOMATIS DOWNLOAD file!
+✅ Cek folder Downloads komputer Anda
+✅ Nama file: Laporan_Evaluasi_2025-10-28_103045.docx
+✅ File JUGA ada di: writable/filedox/update_laporanevaluasi.docx
+
+
+================================================================================
+                    🛑 CARA STOP SERVER
+================================================================================
+
+Di terminal VSCode, tekan:
+
+    Ctrl + C
+
+Server akan berhenti.
+
+
+================================================================================
+                    📱 APLIKASI YANG HARUS TERBUKA
+================================================================================
+
+Saat menggunakan aplikasi ini, yang harus terbuka:
+
+1. ✅ VSCode              → Untuk jalankan server
+2. ✅ Terminal di VSCode  → Server jalan di sini (JANGAN DITUTUP!)
+3. ✅ Web Browser         → Untuk akses aplikasi
+4. ✅ Microsoft Word      → Untuk buka file hasil (otomatis)
+
+URUTAN BUKA:
+VSCode → Terminal → Jalankan Server → Buka Browser → Akses Aplikasi
+
+
+================================================================================
+                        ⚠️ TROUBLESHOOTING CEPAT
+================================================================================
+
+Problem: "php: command not found"
+-----------------------------------
+Solusi:
+1. Install XAMPP (lihat langkah instalasi di atas)
+2. Tambah PHP ke PATH
+3. Restart Command Prompt
+4. Coba lagi
+
+Problem: Port 8080 sudah dipakai
+---------------------------------
+Solusi: Ganti port
+    php -S localhost:9000 -t public
+
+Lalu buka browser ke: http://localhost:9000
+
+Problem: File tidak ter-download
+---------------------------------
+Solusi:
+1. Cek apakah SEMUA field sudah diisi
+2. Cek apakah 3 gambar sudah di-upload
+3. Cek log: writable/logs/log-YYYY-MM-DD.php
+4. Baca file: PENTING_FILE_HASIL.txt
+
+Problem: Form tidak muncul
+---------------------------
+Solusi:
+1. Pastikan server jalan (ada tulisan "PHP Development Server started")
+2. Pastikan buka URL yang benar: http://localhost:8080
+3. Clear cache browser (Ctrl+Shift+Delete)
+
+
+================================================================================
+                    📚 FILE PANDUAN LAINNYA
+================================================================================
+
+File ini hanya ringkasan SUPER CEPAT.
+
+Untuk detail lengkap, baca file-file ini:
+
+1. PANDUAN_LENGKAP_VSCODE.md   → Panduan detail step-by-step
+2. PENTING_FILE_HASIL.txt      → Dimana file hasil nya?
+3. CARA_PAKAI.txt              → Cara pakai sistem & daftar placeholder
+4. README.md                   → Dokumentasi teknis lengkap
+
+
+================================================================================
+                        ✅ CHECKLIST PERSIAPAN
+================================================================================
+
+Centang semua sebelum mulai:
+
+□ VSCode sudah terinstall
+□ PHP sudah terinstall (cek: php --version)
+□ Composer sudah terinstall (cek: composer --version)
+□ Project sudah di-download & extract
+□ Project sudah dibuka di VSCode
+□ Dependencies sudah di-install (composer install)
+□ File template ada: writable/filedox/laporanevaluasi.docx
+
+
+================================================================================
+                        🎯 QUICK START
+================================================================================
+
+Jika semua software sudah terinstall, cukup 4 langkah:
+
+1. Buka VSCode → Open Folder (pilih folder project)
+2. Buka Terminal (Ctrl + `)
+3. Ketik: php -S localhost:8080 -t public
+4. Buka browser: http://localhost:8080
+
+SELESAI! 🎉
+
+
+================================================================================
+                        💡 CATATAN PENTING
+================================================================================
+
+⚠️ Template Word HARUS punya placeholder format ${...}
+   Contoh: ${JUDUL}, ${Alamat}, ${gbremonev}
+   
+   Jika tidak ada, file hasil akan KOSONG (placeholder tidak terganti)!
+
+⚠️ JANGAN tutup terminal selama aplikasi dipakai!
+   Server jalan di terminal. Kalau ditutup, aplikasi mati.
+
+⚠️ File hasil akan OTOMATIS DOWNLOAD ke folder Downloads!
+   Cek di: C:\Users\NamaAnda\Downloads\
+
+✅ Setiap submit form = file BARU akan di-generate
+
+
+================================================================================
+
+🎉 SELAMAT MENGGUNAKAN APLIKASI!
+
+Jika ada masalah, baca file: PANDUAN_LENGKAP_VSCODE.md
+Atau cek log: writable/logs/
+
+================================================================================

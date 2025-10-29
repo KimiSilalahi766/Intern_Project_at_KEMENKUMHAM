@@ -1,0 +1,119 @@
+================================================================================
+                    CARA MENGGUNAKAN SISTEM INI
+================================================================================
+
+LANGKAH 1: PASTIKAN TEMPLATE WORD SUDAH BENAR
+----------------------------------------------
+File template HARUS ada di: writable/filedox/laporanevaluasi.docx
+
+Template HARUS punya placeholder dengan format ${...}
+
+Contoh placeholder yang HARUS ada di template Word:
+- ${JUDUL}
+- ${Alamat}
+- ${Telpon}
+- ${manla}
+- ${relsu}
+- ${NAMSAT}
+- ${satker}
+- ${triwulan}
+- ${tahun}
+- ${output}
+- ${wulantri}
+- ${hunta}
+- ${putout}
+- ${hambatan1}
+- ${hambatan2}
+- ${rencana1}
+- ${rencana2}
+- ${gbremonev}        <- untuk gambar E-Monev
+- ${gmbrsmart}        <- untuk gambar SMART
+- ${gbrerformance}    <- untuk gambar E-Performance
+
+
+LANGKAH 2: JALANKAN SERVER
+---------------------------
+Buka terminal/command prompt, lalu ketik:
+
+    php -S localhost:8080 -t public
+
+Atau jika pakai XAMPP, taruh folder ini di:
+    C:\xampp\htdocs\
+
+Lalu akses via browser:
+    http://localhost/nama-folder/
+
+
+LANGKAH 3: BUKA DI BROWSER
+---------------------------
+Buka browser dan ketik:
+    http://localhost:8080
+
+
+LANGKAH 4: ISI FORM DAN SUBMIT
+-------------------------------
+1. Isi SEMUA field (tidak boleh ada yang kosong)
+2. Upload 3 gambar (E-Monev, SMART, E-Performance)
+3. Klik tombol "KIRIM"
+
+
+LANGKAH 5: CEK FILE HASIL
+--------------------------
+File akan OTOMATIS TER-DOWNLOAD ke folder Downloads komputer Anda!
+
+Nama file: Laporan_Evaluasi_YYYY-MM-DD_HHMMSS.docx
+
+File JUGA tersimpan di server:
+    writable/filedox/update_laporanevaluasi.docx
+
+
+================================================================================
+                        JIKA ADA MASALAH
+================================================================================
+
+MASALAH: File tidak ter-download
+SOLUSI:
+1. Buka browser Console (tekan F12)
+2. Lihat apakah ada error
+3. Cek log di: writable/logs/log-YYYY-MM-DD.php
+4. Pastikan semua field sudah diisi
+5. Pastikan gambar max 2MB
+
+
+MASALAH: Error "Template file tidak ditemukan"
+SOLUSI:
+1. Pastikan file ada di: writable/filedox/laporanevaluasi.docx
+2. Jangan ubah nama file template
+
+
+MASALAH: Placeholder tidak terganti
+SOLUSI:
+1. Buka template Word
+2. Pastikan placeholder ditulis: ${namaplaceholder}
+3. JANGAN ada spasi di dalam ${}
+4. Huruf besar/kecil HARUS SAMA dengan yang ada di controller
+
+
+MASALAH: Error permission
+SOLUSI (Linux/Mac):
+    chmod -R 777 writable/
+
+SOLUSI (Windows):
+    Klik kanan folder writable -> Properties -> Security -> Edit -> 
+    Berikan Full Control ke user Anda
+
+
+================================================================================
+                    LOKASI FILE PENTING
+================================================================================
+
+TEMPLATE (Input):    writable/filedox/laporanevaluasi.docx
+HASIL (Output):      writable/filedox/update_laporanevaluasi.docx
+GAMBAR UPLOAD:       writable/uploads/
+LOG ERROR:           writable/logs/
+
+================================================================================
+
+Jika masih ada masalah, cek file log di writable/logs/ untuk detail error.
+
+================================================================================

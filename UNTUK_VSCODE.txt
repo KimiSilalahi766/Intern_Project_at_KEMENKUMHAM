@@ -1,0 +1,230 @@
+================================================================================
+            CARA DOWNLOAD DAN JALANKAN DI VSCODE/LOCALHOST
+================================================================================
+
+LANGKAH 1: DOWNLOAD PROJECT
+============================
+1. Download SELURUH folder project ini
+2. Extract ke folder di komputer Anda
+   Contoh: D:\Projects\laporan-evaluasi\
+
+
+LANGKAH 2: INSTALL DEPENDENCIES
+================================
+1. Buka terminal/command prompt
+2. Masuk ke folder project:
+   cd D:\Projects\laporan-evaluasi\
+
+3. Jalankan:
+   composer install
+
+4. Tunggu sampai selesai install
+
+
+LANGKAH 3: KONFIGURASI
+=======================
+File sudah dikonfigurasi untuk localhost:8080
+
+TIDAK PERLU UBAH APA-APA!
+
+Config otomatis:
+- baseURL: http://localhost:8080/
+- Server port: 8080
+- Semua sudah siap pakai
+
+
+LANGKAH 4: JALANKAN SERVER
+===========================
+
+OPSI A: Menggunakan PHP Built-in Server (RECOMMENDED)
+-------------------------------------------------------
+1. Buka terminal di folder project
+2. Jalankan:
+   php -S localhost:8080 -t public
+
+3. Buka browser:
+   http://localhost:8080
+
+
+OPSI B: Menggunakan XAMPP
+---------------------------
+1. Copy folder project ke: C:\xampp\htdocs\
+2. Start Apache di XAMPP Control Panel
+3. Buka browser:
+   http://localhost/nama-folder/
+
+
+OPSI C: Menggunakan Laragon
+-----------------------------
+1. Copy folder project ke: C:\laragon\www\
+2. Start All di Laragon
+3. Buka browser:
+   http://nama-folder.test
+
+
+LANGKAH 5: TEST APLIKASI
+=========================
+1. Buka browser ke: http://localhost:8080
+2. Isi SEMUA field di form
+3. Upload 3 gambar (JPG/PNG, max 2MB each)
+4. Klik "KIRIM"
+5. File akan OTOMATIS TER-DOWNLOAD!
+
+
+================================================================================
+                    TROUBLESHOOTING VSCODE/LOCALHOST
+================================================================================
+
+ERROR: "composer: command not found"
+-------------------------------------
+Install Composer dulu:
+1. Download dari: https://getcomposer.org/download/
+2. Install
+3. Restart terminal
+4. Coba lagi: composer install
+
+
+ERROR: "PHP: command not found"
+---------------------------------
+Install PHP dulu:
+
+Windows:
+1. Download XAMPP: https://www.apachefriends.org/
+2. Install
+3. Tambahkan ke PATH: C:\xampp\php\
+4. Restart terminal
+
+Mac:
+brew install php
+
+
+ERROR: Port 8080 already in use
+---------------------------------
+Ganti port di command:
+   php -S localhost:9000 -t public
+
+Dan ganti di app/Config/App.php:
+   public string $baseURL = 'http://localhost:9000/';
+
+
+ERROR: "Template file tidak ditemukan"
+----------------------------------------
+1. Pastikan file ada: writable/filedox/laporanevaluasi.docx
+2. Jangan ubah nama atau lokasi file
+3. File HARUS punya placeholder format ${...}
+
+
+ERROR: Permission Denied (Linux/Mac)
+--------------------------------------
+Jalankan:
+   chmod -R 777 writable/
+
+
+================================================================================
+                    STRUKTUR FILE UNTUK VSCODE
+================================================================================
+
+project-folder/
+├── app/                      ← Source code aplikasi
+│   ├── Controllers/          ← Controller (WordProcessor.php)
+│   ├── Views/                ← Tampilan (form.php)
+│   └── Config/               ← Konfigurasi
+│
+├── public/                   ← Web root (entry point)
+│   └── index.php
+│
+├── writable/                 ← Folder yang HARUS WRITABLE!
+│   ├── filedox/              ← Template & hasil DOCX
+│   ├── uploads/              ← Temporary gambar
+│   └── logs/                 ← Log error
+│
+├── vendor/                   ← Composer dependencies
+│
+├── composer.json             ← Dependency list
+├── README.md                 ← Dokumentasi lengkap
+├── CARA_PAKAI.txt            ← Cara pakai singkat
+└── PENTING_FILE_HASIL.txt    ← Lokasi file hasil
+
+
+================================================================================
+                    EXTENSION PHP YANG DIBUTUHKAN
+================================================================================
+
+Pastikan extension ini ENABLED di php.ini:
+- extension=zip
+- extension=xml
+- extension=mbstring
+- extension=gd
+- extension=fileinfo
+
+Cara cek:
+   php -m
+
+Cara enable (edit php.ini):
+   Hapus tanda ; di depan extension=...
+
+
+================================================================================
+                        CARA CEK SUDAH JALAN
+================================================================================
+
+1. Buka: http://localhost:8080
+2. Harus muncul form dengan:
+   ✓ Background biru gradasi
+   ✓ Header biru dengan border kuning
+   ✓ Form putih dengan border biru
+   ✓ Tombol biru yang hover jadi kuning
+3. Jika muncul, berarti SUDAH JALAN!
+
+
+================================================================================
+                        FILE HASIL ADA DIMANA?
+================================================================================
+
+Setelah submit form, file ada di 2 tempat:
+
+1. AUTO-DOWNLOAD ke: Downloads komputer Anda
+   Nama: Laporan_Evaluasi_2025-10-28_143520.docx
+
+2. Di folder project: writable/filedox/update_laporanevaluasi.docx
+
+
+================================================================================
+                    DEBUGGING DI VSCODE
+================================================================================
+
+Cara lihat error:
+1. Buka terminal di VSCode
+2. Jalankan server dengan output:
+   php -S localhost:8080 -t public
+
+3. Lihat output di terminal
+4. Atau cek log: writable/logs/log-YYYY-MM-DD.php
+
+
+Cara aktifkan debug mode:
+Edit file: app/Config/Boot/development.php
+Sudah otomatis enabled!
+
+
+================================================================================
+                        DEPLOY KE HOSTING
+================================================================================
+
+Untuk upload ke hosting (shared hosting/VPS):
+1. Upload SEMUA file
+2. Point domain ke folder /public
+3. Set permission: chmod -R 755 writable/
+4. Update baseURL di app/Config/App.php
+5. Done!
+
+
+================================================================================
+
+✅ PROJECT SUDAH SIAP PAKAI DI VSCODE/LOCALHOST!
+✅ TIDAK ADA KODE YANG BERHUBUNGAN DENGAN PLATFORM LAIN!
+✅ 100% PORTABLE - BISA JALAN DI MANA SAJA!
+
+Buka file README.md atau CARA_PAKAI.txt untuk detail lengkap!
+
+================================================================================

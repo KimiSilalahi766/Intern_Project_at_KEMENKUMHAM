@@ -1,0 +1,165 @@
+================================================================================
+                ⚠️  DIMANA FILE HASIL NYA? BACA INI! ⚠️
+================================================================================
+
+SETELAH ANDA KLIK TOMBOL "KIRIM", FILE AKAN ADA DI 2 TEMPAT:
+
+📍 TEMPAT 1: DOWNLOAD OTOMATIS KE KOMPUTER ANDA
+================================================
+File akan LANGSUNG TER-DOWNLOAD ke folder Downloads komputer Anda.
+
+Lokasi (Windows):
+    C:\Users\NamaAnda\Downloads\Laporan_Evaluasi_2025-10-28_143520.docx
+
+Lokasi (Mac):
+    /Users/NamaAnda/Downloads/Laporan_Evaluasi_2025-10-28_143520.docx
+
+Nama file akan berubah sesuai tanggal & jam download:
+    Laporan_Evaluasi_YYYY-MM-DD_HHMMSS.docx
+
+
+📍 TEMPAT 2: DI SERVER (FOLDER PROJECT)
+========================================
+File JUGA tersimpan di folder project:
+
+    writable/filedox/update_laporanevaluasi.docx
+
+File ini akan di-GENERATE ULANG setiap kali Anda submit form.
+Jadi jika Anda submit 2x, file yang kedua akan MENIMPA file yang pertama.
+
+
+================================================================================
+                        CARA CEK FILE SUDAH JADI
+================================================================================
+
+CARA 1: Cek Browser Downloads
+-------------------------------
+1. Lihat pojok kanan bawah browser (Chrome/Edge)
+2. Atau tekan Ctrl+J (Windows) / Cmd+J (Mac) untuk buka Downloads
+3. File akan ada di list dengan nama: Laporan_Evaluasi_...
+
+
+CARA 2: Buka Folder Downloads Langsung
+----------------------------------------
+Windows:
+    1. Buka File Explorer
+    2. Ketik di address bar: %USERPROFILE%\Downloads
+    3. Tekan Enter
+    4. Cari file: Laporan_Evaluasi_...
+
+Mac:
+    1. Buka Finder
+    2. Klik Downloads di sidebar
+    3. Cari file: Laporan_Evaluasi_...
+
+
+CARA 3: Cek Di Folder Project
+------------------------------
+1. Buka folder project Anda
+2. Masuk ke: writable/filedox/
+3. Cari file: update_laporanevaluasi.docx
+4. File ini akan SELALU ADA setelah submit berhasil
+
+
+================================================================================
+                    ⚠️  JIKA FILE TIDAK MUNCUL ⚠️
+================================================================================
+
+KEMUNGKINAN 1: Submit Form Gagal (Ada Error)
+----------------------------------------------
+CEK:
+1. Apakah ada pesan error merah di halaman form?
+2. Apakah SEMUA field sudah diisi? (tidak boleh kosong)
+3. Apakah gambar sudah di-upload SEMUA (3 gambar)?
+4. Apakah ukuran gambar tidak lebih dari 2MB?
+
+SOLUSI:
+- Isi semua field yang kosong
+- Upload ulang gambar yang belum
+- Kompres gambar jika terlalu besar
+
+
+KEMUNGKINAN 2: Template Word Belum Benar
+------------------------------------------
+CEK:
+1. Apakah file laporanevaluasi.docx ada di writable/filedox/ ?
+2. Apakah template punya placeholder format ${...} ?
+
+SOLUSI:
+- Buka template Word
+- Tambahkan placeholder dengan format: ${JUDUL}, ${Alamat}, dll
+- Lihat file CARA_PAKAI.txt untuk daftar lengkap placeholder
+
+
+KEMUNGKINAN 3: Error di Server
+--------------------------------
+CEK LOG:
+1. Buka folder: writable/logs/
+2. Cari file terbaru: log-YYYY-MM-DD.php
+3. Buka dengan text editor
+4. Cari kata "ERROR" atau "error"
+5. Lihat detail error nya
+
+SOLUSI:
+- Perbaiki sesuai error yang muncul
+- Atau kirim error message ke developer
+
+
+KEMUNGKINAN 4: Permission Error (Folder Tidak Bisa Ditulis)
+-------------------------------------------------------------
+CEK:
+- Apakah ada error tentang "permission" atau "tidak bisa menulis"?
+
+SOLUSI (Windows):
+1. Klik kanan folder 'writable'
+2. Properties → Security → Edit
+3. Pilih user Anda
+4. Centang "Full Control"
+5. OK → Apply
+
+SOLUSI (Linux/Mac):
+Jalankan di terminal:
+    chmod -R 777 writable/
+
+
+================================================================================
+                        CARA TEST FILE BERHASIL
+================================================================================
+
+1. Isi form dengan data DUMMY untuk test
+2. Upload 3 gambar RANDOM (foto apapun, asal JPG/PNG)
+3. Klik KIRIM
+4. Tunggu beberapa detik
+5. Browser akan mulai DOWNLOAD file
+6. Cek folder Downloads
+7. Buka file DOCX yang ter-download
+8. Cek apakah data Anda sudah masuk di dokumen
+
+
+================================================================================
+                    LOG FILE UNTUK DEBUGGING
+================================================================================
+
+Semua proses akan di-LOG ke:
+    writable/logs/log-YYYY-MM-DD.php
+
+Cari kata-kata ini di log file:
+- "Loading template processor" → template mulai dibuka
+- "Template loaded successfully" → template berhasil dibuka
+- "Text placeholders replaced" → placeholder teks sudah diganti
+- "E-Monev image saved" → gambar E-Monev berhasil di-upload
+- "Document saved successfully" → file hasil BERHASIL dibuat!
+- "Starting download" → file mulai di-download
+- "ERROR" → ada error! baca detail nya
+
+================================================================================
+
+🎯 KESIMPULAN: 
+Setelah klik KIRIM, file PASTI ada di:
+1. Folder Downloads komputer Anda (download otomatis)
+2. Folder writable/filedox/update_laporanevaluasi.docx
+
+Jika TIDAK ADA di kedua tempat = ada ERROR!
+Cek log di writable/logs/ untuk lihat error nya!
+
+================================================================================

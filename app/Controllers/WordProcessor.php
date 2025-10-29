@@ -1,10 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\SimpleType\Jc;
-use PhpOffice\PhpWord\Shared\Converter;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class WordProcessor extends BaseController {
 
@@ -15,6 +12,11 @@ class WordProcessor extends BaseController {
 
     public function replace()
     {
+        // Enable error logging
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+        
+        // Validation rules
         $rules = [
             'judul' => 'required',
             'alamat' => 'required',
@@ -39,134 +41,156 @@ class WordProcessor extends BaseController {
         ];
 
         if (!$this->validate($rules)) {
+            log_message('error', 'Validation failed: ' . json_encode($this->validator->getErrors()));
             return view('form', [
                 'validation' => $this->validator,
             ]);
-        } else {
-            // Load library PHPWord
-            $phpWord = new PhpWord();
+        }
 
-            // Dictionary untuk menggantikan kata-kata berdasarkan input form
-            $replacements = array(
-                'JUDUL' => $this->request->getPost('judul'),
-                'Alamat' => $this->request->getPost('alamat'),
-                'Telpon' => $this->request->getPost('telpon'),
-                'manla' => $this->request->getPost('manla'),
-                'relsu' => $this->request->getPost('relsu'),
-                'NAMSAT' => $this->request->getPost('namsat'),
-                'satker' => $this->request->getPost('satker'),
-                'triwulan' => $this->request->getPost('triwulan'),
-                'tahun' => $this->request->getPost('tahun'),
-                'output' => $this->request->getPost('output'),
-                'wulantri' => $this->request->getPost('wulantri'),
-                'hunta' => $this->request->getPost('hunta'),
-                'putout' => $this->request->getPost('putout'),
-                'hambatan1' => $this->request->getPost('hambatan1'),
-                'hambatan2' => $this->request->getPost('hambatan2'),
-                'rencana1' => $this->request->getPost('rencana1'),
-                'rencana2' => $this->request->getPost('rencana2')
-            );
+        // Path to template and output file
+        $templatePath = WRITEPATH . 'filedox/laporanevaluasi.docx';
+        $outputPath = WRITEPATH . 'filedox/update_laporanevaluasi.docx';
 
-            // Path dari dokumen Word yang akan diupdate
-            $docPath = WRITEPATH . 'filedox/laporanevaluasi.docx';
-            $newDocPath = WRITEPATH . 'filedox/update_laporanevaluasi.docx';
+        // Log file paths
+        log_message('info', 'Template path: ' . $templatePath);
+        log_message('info', 'Output path: ' . $outputPath);
 
-            // Debug: Periksa apakah path dokumen Word benar
-            if (!file_exists($docPath)) {
-                log_message('error', 'Template file not found: ' . $docPath);
-                return view('form', ['error' => 'Template file not found.']);
-            }
+        // Check if template exists
+        if (!file_exists($templatePath)) {
+            log_message('error', 'Template file not found: ' . $templatePath);
+            return view('form', ['error' => 'Template file tidak ditemukan di: ' . $templatePath]);
+        }
 
-            // Buka dokumen Word yang ada
-            try {
-                $document = IOFactory::load($docPath);
-            } catch (\Exception $e) {
-                log_message('error', 'Error loading Word document: ' . $e->getMessage());
-                return view('form', ['error' => 'Error loading Word document.']);
-            }
+        // Check if template is readable
+        if (!is_readable($templatePath)) {
+            log_message('error', 'Template file not readable: ' . $templatePath);
+            return view('form', ['error' => 'Template file tidak bisa dibaca. Cek permission file.']);
+        }
 
-            // Proses dan simpan gambar yang diunggah
+        // Check if output directory is writable
+        $outputDir = dirname($outputPath);
+        if (!is_writable($outputDir)) {
+            log_message('error', 'Output directory not writable: ' . $outputDir);
+            return view('form', ['error' => 'Folder output tidak bisa ditulis. Cek permission: ' . $outputDir]);
+        }
+
+        try {
+            log_message('info', 'Loading template processor...');
+            
+            // Load template using TemplateProcessor
+            $templateProcessor = new TemplateProcessor($templatePath);
+            
+            log_message('info', 'Template loaded successfully');
+
+            // Replace text placeholders
+            $templateProcessor->setValue('JUDUL', $this->request->getPost('judul'));
+            $templateProcessor->setValue('Alamat', $this->request->getPost('alamat'));
+            $templateProcessor->setValue('Telpon', $this->request->getPost('telpon'));
+            $templateProcessor->setValue('manla', $this->request->getPost('manla'));
+            $templateProcessor->setValue('relsu', $this->request->getPost('relsu'));
+            $templateProcessor->setValue('NAMSAT', $this->request->getPost('namsat'));
+            $templateProcessor->setValue('satker', $this->request->getPost('satker'));
+            $templateProcessor->setValue('triwulan', $this->request->getPost('triwulan'));
+            $templateProcessor->setValue('tahun', $this->request->getPost('tahun'));
+            $templateProcessor->setValue('output', $this->request->getPost('output'));
+            $templateProcessor->setValue('wulantri', $this->request->getPost('wulantri'));
+            $templateProcessor->setValue('hunta', $this->request->getPost('hunta'));
+            $templateProcessor->setValue('putout', $this->request->getPost('putout'));
+            $templateProcessor->setValue('hambatan1', $this->request->getPost('hambatan1'));
+            $templateProcessor->setValue('hambatan2', $this->request->getPost('hambatan2'));
+            $templateProcessor->setValue('rencana1', $this->request->getPost('rencana1'));
+            $templateProcessor->setValue('rencana2', $this->request->getPost('rencana2'));
+
+            log_message('info', 'Text placeholders replaced');
+
+            // Process and save uploaded images
             $gambar_gbremonev = $this->request->getFile('gambar_gbremonev');
             $gambar_gmbrsmart = $this->request->getFile('gambar_gmbrsmart');
             $gambar_gbrerformance = $this->request->getFile('gambar_gbrerformance');
 
-            // Generate unique names for each image
-            $gbremonevName = $gambar_gbremonev->getRandomName();
-            $gmbrsmartName = $gambar_gmbrsmart->getRandomName();
-            $gbrerformanceName = $gambar_gbrerformance->getRandomName();
+            log_message('info', 'Processing images...');
 
+            // Save images with unique names
             if ($gambar_gbremonev->isValid() && !$gambar_gbremonev->hasMoved()) {
+                $gbremonevName = $gambar_gbremonev->getRandomName();
                 $gambar_gbremonev->move(WRITEPATH . 'uploads', $gbremonevName);
-                $replacements['gbremonev'] = WRITEPATH . 'uploads/' . $gbremonevName;
+                $imagePath1 = WRITEPATH . 'uploads/' . $gbremonevName;
+                
+                log_message('info', 'E-Monev image saved: ' . $imagePath1);
+                
+                // Replace image placeholder with actual image
+                $templateProcessor->setImageValue('gbremonev', array(
+                    'path' => $imagePath1,
+                    'width' => 400,
+                    'height' => 300,
+                    'ratio' => false
+                ));
+                
+                log_message('info', 'E-Monev placeholder replaced');
             }
 
             if ($gambar_gmbrsmart->isValid() && !$gambar_gmbrsmart->hasMoved()) {
+                $gmbrsmartName = $gambar_gmbrsmart->getRandomName();
                 $gambar_gmbrsmart->move(WRITEPATH . 'uploads', $gmbrsmartName);
-                $replacements['gmbrsmart'] = WRITEPATH . 'uploads/' . $gmbrsmartName;
+                $imagePath2 = WRITEPATH . 'uploads/' . $gmbrsmartName;
+                
+                log_message('info', 'SMART image saved: ' . $imagePath2);
+                
+                // Replace image placeholder with actual image
+                $templateProcessor->setImageValue('gmbrsmart', array(
+                    'path' => $imagePath2,
+                    'width' => 400,
+                    'height' => 300,
+                    'ratio' => false
+                ));
+                
+                log_message('info', 'SMART placeholder replaced');
             }
 
             if ($gambar_gbrerformance->isValid() && !$gambar_gbrerformance->hasMoved()) {
+                $gbrerformanceName = $gambar_gbrerformance->getRandomName();
                 $gambar_gbrerformance->move(WRITEPATH . 'uploads', $gbrerformanceName);
-                $replacements['gbrerformance'] = WRITEPATH . 'uploads/' . $gbrerformanceName;
+                $imagePath3 = WRITEPATH . 'uploads/' . $gbrerformanceName;
+                
+                log_message('info', 'E-Performance image saved: ' . $imagePath3);
+                
+                // Replace image placeholder with actual image
+                $templateProcessor->setImageValue('gbrerformance', array(
+                    'path' => $imagePath3,
+                    'width' => 400,
+                    'height' => 300,
+                    'ratio' => false
+                ));
+                
+                log_message('info', 'E-Performance placeholder replaced');
             }
 
-            // Ganti kata-kata yang disorot
-            foreach ($document->getSections() as $section) {
-                foreach ($section->getElements() as $element) {
-                    if (method_exists($element, 'getElements')) {
-                        foreach ($element->getElements() as $childElement) {
-                            if (method_exists($childElement, 'getText')) {
-                                $text = $childElement->getText();
-                                foreach ($replacements as $oldWord => $newWord) {
-                                    if (strpos($text, $oldWord) !== false) {
-                                        // Jika pengganti adalah path gambar, sisipkan gambar
-                                        if (strpos($newWord, WRITEPATH) === 0) {
-                                            // Menyisipkan gambar dan menghapus label yang sesuai
-                                            $childElement->setText(''); // Menghapus teks placeholder
+            log_message('info', 'Saving document to: ' . $outputPath);
 
-                                            // Mengambil ukuran gambar asli
-                                            list($width, $height) = getimagesize($newWord);
-
-                                            // Hitung rasio aspek
-                                            $aspectRatio = $width / $height;
-
-                                            // Set tinggi gambar yang diinginkan
-                                            $desiredHeight = Converter::cmToPixel(10);
-
-                                            // Hitung lebar berdasarkan rasio aspek
-                                            $desiredWidth = $desiredHeight * $aspectRatio;
-
-                                            // Menyisipkan gambar dengan ukuran yang sesuai
-                                            $paragraph = $section->addTextRun(); // Membuat paragraf baru untuk gambar
-                                            $paragraph->addTextBreak(); // Jeda sebelum gambar
-                                            $paragraph->addImage($newWord, array(
-                                                'width' => $desiredWidth, // Set lebar gambar sesuai rasio aspek
-                                                'height' => $desiredHeight, // Set tinggi gambar
-                                                'alignment' => Jc::CENTER, // Rata tengah
-                                            ));
-                                            $paragraph->addTextBreak(); // Jeda setelah gambar
-                                        } else {
-                                            $childElement->setText(str_replace($oldWord, $newWord, $text));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            // Save the updated document
+            $templateProcessor->saveAs($outputPath);
+            
+            // Verify file was created
+            if (!file_exists($outputPath)) {
+                log_message('error', 'Output file was not created: ' . $outputPath);
+                return view('form', ['error' => 'File output tidak berhasil dibuat. Cek log untuk detail.']);
             }
 
-            // Simpan dokumen Word yang telah diperbarui
-            try {
-                $objWriter = IOFactory::createWriter($document, 'Word2007');
-                $objWriter->save($newDocPath);
-            } catch (\Exception $e) {
-                log_message('error', 'Error saving Word document: ' . $e->getMessage());
-                return view('form', ['error' => 'Error saving Word document.']);
-            }
+            $fileSize = filesize($outputPath);
+            log_message('info', 'Document saved successfully. Size: ' . $fileSize . ' bytes');
 
-            // Kirim dokumen Word yang telah diperbarui sebagai lampiran untuk diunduh
-            return $this->response->download($newDocPath, null);
+            // Generate unique filename for download
+            $downloadName = 'Laporan_Evaluasi_' . date('Y-m-d_His') . '.docx';
+            
+            log_message('info', 'Starting download: ' . $downloadName);
+
+            // Download the file
+            return $this->response->download($outputPath, null)->setFileName($downloadName);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Error processing Word document: ' . $e->getMessage());
+            log_message('error', 'Stack trace: ' . $e->getTraceAsString());
+            return view('form', ['error' => 'Terjadi kesalahan: ' . $e->getMessage() . '. Cek log di writable/logs/ untuk detail.']);
         }
     }
 }

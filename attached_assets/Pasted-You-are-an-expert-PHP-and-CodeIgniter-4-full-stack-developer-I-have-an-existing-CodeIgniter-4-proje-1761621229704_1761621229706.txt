@@ -1,0 +1,79 @@
+You are an expert PHP and CodeIgniter 4 full-stack developer. I have an existing CodeIgniter 4 project that needs to be completely improved and professionally rebuilt into a clean, functional web system.
+
+🔧 GOAL:
+Rebuild and enhance a CodeIgniter 4 web app that allows users to fill in form fields corresponding to placeholders inside a DOCX file, then automatically generate and download a new DOCX or PDF file with all placeholders replaced — while keeping the original layout, spacing, and page structure (7 pages total) exactly the same as the source file.
+
+📄 SOURCE FILE:
+The base DOCX file contains these placeholders that must be replaced dynamically through form inputs:
+(Page 1)
+- NAMA SATKER
+- Alamat
+- Telpon / Fax :
+- Laman :
+- Surel :
+- nama satker
+
+(Page 2)
+- nama satker (several times)
+
+(Page 3)
+- nama satker (several times)
+
+(Page 4)
+- Triwulan III Tahun 2024 yakni ….%
+- Upload file image for “capture nilai e-monev pada aplikasi”
+
+(Page 5)
+- Triwulan III Tahun 2024 yakni ….%
+- Upload file image for “capture nilai SMART pada aplikasi”
+
+(Page 6)
+- nama satker
+- Upload file image for “LAMPIRAN CAPTURE CAPAIAN E-ERFORMANCE PADA APLIKASI”
+
+(Page 7)
+- nama satker
+- Section “adapun dalam pemenuhannya…” → exclude this sentence, but include 2 bullet points typed by user
+- Section “Rencana tindaklanjut…” → exclude this sentence, but include 2 bullet points typed by user
+- nama satker
+
+⚙️ REQUIREMENTS:
+1. Build the web interface in CodeIgniter 4 (latest stable version).
+2. Design a professional Bootstrap 5 responsive front-end form.
+3. The form must include:
+   - Input text fields (Nama Satker, Alamat, Telp/Fax, Laman, Surel, Persentase E-Monev, Persentase SMART)
+   - Upload fields for 3 image files (E-Monev, SMART, E-Performance)
+   - Textareas for “Kendala” (2 points) and “Rencana Tindaklanjut” (2 points)
+4. When submitted:
+   - System loads the template DOCX file from `/app/Docs/template.docx`
+   - Replaces placeholders according to user input.
+   - Keeps **all page layout, spacing, and formatting identical** (must stay 7 pages).
+   - Inserts uploaded images exactly where indicated (“capture nilai...” and “LAMPIRAN CAPTURE...”).
+   - Outputs a downloadable DOCX and also offers PDF conversion option.
+5. Use PHPWord for manipulating the DOCX template.
+6. Use Dompdf (or PHPWord built-in PDF conversion) for generating PDF output.
+7. Include a controller `ReportGenerator.php`, a model if necessary, and a view `form_report.php`.
+8. Ensure error handling, validation, and success message.
+9. Store uploaded images temporarily in `/writable/uploads/` and delete them after generation.
+10. Optional: Include download logs (date, filename, user IP) in a simple SQLite or MySQL database table.
+
+💡 Example flow:
+1. User opens the form.
+2. Fills in the form fields and uploads 3 images.
+3. Clicks “Generate Report”.
+4. System replaces all placeholders in the Word template.
+5. User gets a button to download as DOCX or PDF.
+6. The resulting document must still be exactly 7 pages, same margins and layout.
+
+🎨 Additional:
+- Use a clean, modern Bootstrap layout (container, card, labels, spacing, etc.)
+- Add a simple header: “Laporan Evaluasi Capaian Nilai E-Monev, SMART dan E-Performance Triwulan III Tahun 2024”
+- Keep all texts in Bahasa Indonesia as in the template.
+- No styling should distort the DOCX layout.
+- Add comments in English explaining each step of the code.
+
+Final Deliverables:
+- Fully functional CodeIgniter 4 project folder
+- Controller file for generating and exporting Word/PDF
+- View file containing the responsive form
+- Working PHPWord integration that preserves the original 7-page layout
